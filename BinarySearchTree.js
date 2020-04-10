@@ -115,6 +115,7 @@ class BinarySearchTree {
         }
         this.root = removeNode(this.root, data);
     }
+    //recursive
     findMinHeight(node = this.root) {
         if (node === null) {
             return - 1;
@@ -127,6 +128,7 @@ class BinarySearchTree {
             return right + 1;
         }
     }
+    //recursive
     findMaxHeight(node = this.root) {
         if (node == null) {
             return -1;
@@ -141,6 +143,62 @@ class BinarySearchTree {
     }
     isBalanced() {
         return (this.findMinHeight() >= this.findMaxHeight() - 1);
+    }
+    order(func) {
+        if (this.root === null) {
+            return null;
+        } else {
+            return func(this.root);
+        }
+    }
+    //returns an array from in order by data value
+    inOrder() {
+        const traverseInOrder = (node, values = []) => {
+            node.left && traverseInOrder(node.left, values);
+            values.push(node.data);
+            node.right && traverseInOrder(node.right, values);
+            return values;
+        }
+        return this.order(traverseInOrder)
+    }
+    preOrder() {
+        const traversePreOrder = (node, values = []) => {
+            values.push(node.data);
+            node.left && traversePreOrder(node.left, values);
+            node.right && traversePreOrder(node.right, values);
+            return values;
+        }
+        return this.order(traversePreOrder);
+    }
+    postOrder() {
+        const traversePostOrder = (node, values = []) => {
+            node.left && traversePostOrder(node.left, values);
+            node.right && traversePostOrder(node.right, values);
+            values.push(node.data);
+            return values;
+        }
+        return this.order(traversePostOrder);
+    }
+    //returns an array in level order
+    levelOrder() {
+        let values = [];
+        let waiting = [];
+        if (this.root !== null) { //not empty tree
+            waiting.push(this.root); //put root in waiting room
+            while(waiting.length > 0) { //while there are still nodes in waiting room
+                let node = waiting.shift();
+                values.push(node.data);
+                if (node.left !== null) {
+                    waiting.push(node.left); //if there's a left node put in waiting room
+                }
+                if (node.right !== null) {
+                    waiting.push(node.right); //if there's a right node put in waiting room
+                }
+            }
+            return values;
+        } else {
+            return null;
+        }
     }
 }
 
