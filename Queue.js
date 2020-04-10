@@ -14,7 +14,7 @@ class Queue { //FIFO
     }
     peek() { //return first value
         if (this.isEmpty()) throw new Error('Queue is empty!');
-        return this.first.val;
+        return this.first.value;
     }
     //add to end of queue - returns boolean for success
     add(value) {
@@ -37,10 +37,3 @@ class Queue { //FIFO
         return value;
     }
 }
-
-const q = new Queue();
-q.add(5);
-q.add(10);
-q.add(345);
-q.add(243);
-console.log(q.first);
