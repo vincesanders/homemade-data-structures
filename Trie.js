@@ -73,13 +73,3 @@ class Trie {
         }
     }
 }
-
-const t = new Trie;
-t.add('control');
-t.add('computer');
-
-t.add('bass');
-t.add('phone');
-// t.print();
-t.printSort();
-// console.log();
