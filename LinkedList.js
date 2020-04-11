@@ -8,6 +8,7 @@ class Node {
 class LinkedList {
     constructor(value = null) {
         this.root = new Node(value)
+        this.size = 1;
     }
     isEmpty() {
         return this.root === null;
@@ -23,6 +24,7 @@ class LinkedList {
             currentNode = currentNode.next;
         }
         currentNode.next = newNode;
+        this.size++
         return true;
     }
     addToStart(value) {
@@ -34,18 +36,37 @@ class LinkedList {
         const root = this.root;
         newNode.next = root;
         this.root = newNode;
+        this.size++
+        return true;
+    }
+    addAtIndex(index, value) {
+        if (index === 0) {
+            this.addToStart(value);
+        } else if (index >= this.size) throw new Error('The list is too small!');
+        let newNode = new Node(value);
+        let currentIndex = 1; //starting at 1, bc we want to stop at the node before the one that will be shifted.
+        let currentNode = this.root;
+        while (currentIndex !== index) {
+            currentNode = currentNode.next;
+            currentIndex++
+        }
+        newNode.next = currentNode.next;
+        currentNode.next = newNode;
+        this.size++
         return true;
     }
     remove(value) {
         if (this.isEmpty()) throw new Error('List is empty!');
         if (this.root.value === value) { //if root is to be deleted
             this.root = this.root.next;
+            this.size--;
             return value;
         }
         let currentNode = this.root;
         while (currentNode.next !== null) { //checking if element after current is what we should remove
             if (currentNode.next.value === value) { 
                 currentNode.next = currentNode.next.next; //curent node links to node after (skippind removed node)
+                this.size--
                 return value;
             }
             currentNode = currentNode.next;
@@ -81,17 +102,3 @@ class LinkedList {
         return arr;
     }
 }
-
-const ll = new LinkedList;
-ll.addToEnd(1);
-ll.addToEnd(2);
-ll.addToEnd(3);
-ll.addToEnd(4);
-ll.addToEnd(5);
-console.log(ll.getNthtoLast(3));
-console.log(ll.remove(4));
-console.log(ll.print());
-ll.addToStart(0);
-console.log(ll.print());
-ll.remove(0);
-console.log(ll.print());
