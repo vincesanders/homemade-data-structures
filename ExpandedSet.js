@@ -52,7 +52,7 @@ function ExpandedSet() {
         let thisSet = this.values();
         thisSet.forEach(element => {
             if (otherSet.has(element)) {
-                intersection.add(e);
+                intersection.add(element);
             }
         });
         return intersection;
@@ -78,4 +78,4 @@ function ExpandedSet() {
     };
 }
 
-//const mySet = new ExpandedSet();
+export default ExpandedSet;
