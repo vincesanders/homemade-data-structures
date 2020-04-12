@@ -42,4 +42,4 @@ class Queue { //FIFO
     }
 }
 
-module.export = Queue;
+module.exports = { Queue };
